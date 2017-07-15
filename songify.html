@@ -2,71 +2,174 @@
 <html>
 <head>
 	<title>MY music app</title>
-	<style>
-		.first{
-			background-color: rgba(255,0,0,.7);
-			text-align: center;
-		}
-
-	ul{
-	background-color:rgba(255,255,255,.8);
-	color:rgba(0,0,0,.8);
-	padding:20px;
-	text-align:left;
-
-}
-  li{
-	margin-left:70px;
-    display:inline;
-    padding: 10px 10px 0px 10px;
-  }
-  #myInput {
-    background-image: url('/css/searchicon.png'); 
-    background-position: 10px 12px; 
-    background-repeat: no-repeat; 
-    width: 90%; 
-    padding: 12px 20px 12px 40px; 
-    border: 1px solid black; 
-    margin-bottom: 12px; 
-    background-color: rgba(0,0,0,.1);
-}#set2{
- list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-#set3{
-	border: .5px solid black;
-	padding: 10px;
-}
-.second{
-	margin-bottom: 30px;
-}
-
-	</style>
+	<link rel="stylesheet" type="text/css" href="font-awesome.css">
+	<link rel="stylesheet" type="text/css" href="style1.css">
 </head>
 <body>
-<div class="first">
-<img src="https://s-media-cache-ak0.pinimg.com/originals/b6/1c/2c/b61c2cb9696989100a56f70a4283121c.png" height="200" width="500">
-</div>
-<div class="second">
-	<ul id="set2">
-	<li>
-			<form>
-				<input type="text" id="myInput" name="search" placeholder="search"/>
-				<input type="submit" value="search" id="set3" />
-
-			</form>
-		</li>
-		<li>Home</li>
-		<li>My Music</li>
-		<li>Radio</li>
-		<li>Playlists</li>
-		
-	</ul>
+			<div class="input-wrapper">
+	  		<section class="welcome-screen">
+            <h1> Welcome to Songify </h1>
+            <h3> Enter name to access your account </h3>
+           	<input type="text" placeholder="Name" id="name-input">
+           	<button id="home"> Go </button>
+            </section>
+        	</div>
+	<div class="table1">
+	<table id="songs">
+	<thead>
+		<tr>
+			<td>Title</td>
+			<td>Artist</td>
+			<td>Album</td>
+			<td>Duration</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr id='song1'>
+			<td class="song-name"></td>
+			<td class="song-artist"></td>
+			<td class="song-album"></td>
+			<td class="song-duration"></td>
+		</tr>
+		<tr id='song2'>
+			<td class="song-name"></td>
+			<td class="song-artist"></td>
+			<td class="song-album"></td>
+			<td class="song-duration"></td>
+		</tr>
+		<tr id='song3'>
+			<td class="song-name"></td>
+			<td class="song-artist"></td>
+			<td class="song-album"></td>
+			<td class="song-duration"></td>
+		</tr>
+		<tr id='song4'>
+			<td class="song-name"></td>
+			<td class="song-artist"></td>
+			<td class="song-album"></td>
+			<td class="song-duration"></td>
+		</tr>
+	</tbody>
+</table>
+</div> 
+<section id="hidden1">
+	<div class="current-song-wrapper">
+    	<img class="current-song-image" height="55" width="55">
+    	<div>
+        	<p class="current-song-name"></p>
+        	<p class="current-song-album"></p>
+    	</div>
 	</div>
+	<audio controls=""></audio>
+</section>
+
+
+<script src="jquery-2.2.0.min.js"></script>
 
 
 
+
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script>
+var name=document.querySelector('#name-input')
+if(name.length)>=3
+{
+	console.log('hi kanak0')
+}
+else{
+	console.log('hi vedant')
+}
+</script>
+<script>
+var songs = [
+	{
+        'name': 'Make Some Noise For DesiBoys',
+        'artist': 'K.K & Bob',
+        'album': 'Desi Boyz(2011)',
+        'duration': '04:04',
+        'fileName': 'song1.mp3',
+        'image': 'song1.jpg'
+    },
+    {
+        'name': 'Dilliwaali Girlfriend',
+        'artist': 'Arijit Singh & Sunidhi Chauhan',
+        'album': 'Yeh jawaani Hai Deewani',
+        'duration': '04:20',
+        'fileName': 'song2.mp3',
+        'image': 'song2.jpg'
+    },
+    {
+        'name': 'Saturday Saturday',
+        'artist': 'Sharib-Toshi, Badshah , Indeep Bakshi',
+        'album': 'Humpty Sharma Ki Dulhania',
+        'duration': '03:37',
+        'fileName': 'song3.mp3',
+        'image': 'song3.jpg'
+    },
+    {
+        'name': 'High Heels',
+        'artist': 'Honey Singh ',
+        'album': 'KI & KA',
+        'duration': '03:37',
+        'fileName': 'song4.mp3',
+        'image': 'song4.jpg'
+    }
+    ]
+    // songs is an array of objects
+  
+	window.onload = function (){
+		changeCurrentSongDetails(songs[0]);
+	 	for(var i = 0; i < songs.length; i++) {
+	        var obj = songs[i];
+	        var name = '#song' + (i+1);
+	        var song = $(name);
+	        song.find('.song-name').text(obj.name);
+	        song.find('.song-artist').text(obj.artist);
+	        song.find('.song-album').text(obj.album);
+	        song.find('.song-length').text(obj.duration);
+	        addSongNameClickEvent(obj, i + 1);
+    	}
+
+    	$('#songs').DataTable({
+    		paging: false,
+    	});
+	}
+	function toggleSong() {
+		var song = document.querySelector('audio'); 
+		if(song.paused) {
+			song.play();	
+		} else {
+			song.pause();
+		}
+	}
+	function addSongNameClickEvent(songObj, id) {
+		var songName = songObj.name;
+		var fileName = songObj.fileName
+		var id = '#song' + id;
+		function onClick(event){
+		
+			var song = document.querySelector('audio');
+			var currentSong = song.src;
+			if (currentSong.search(fileName) != -1) {
+				toggleSong();
+			} else {
+				changeCurrentSongDetails(songObj);
+				song.src = fileName; 
+				song.play();	
+			}
+		}
+		
+		$(id).on('click', onClick);
+	}
+	function changeCurrentSongDetails(songObj) {
+		var songPath = 'img/' + songObj.image;
+	    $('.current-song-image').attr('src', songPath)
+	    $('.current-song-name').text(songObj.name)
+	    $('.current-song-album').text(songObj.album)
+	}
+	
+</script>
 
 
 
