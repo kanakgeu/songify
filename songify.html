@@ -6,15 +6,20 @@
 	<link rel="stylesheet" type="text/css" href="style1.css">
 </head>
 <body>
-			<div class="input-wrapper">
+		<div class="wrapper">
 	  		<section class="welcome-screen">
-            <h1> Welcome to Songify </h1>
-            <h3> Enter name to access your account </h3>
-           	<input type="text" placeholder="Name" id="name-input">
-           	<button id="home"> Go </button>
+            	<h1> Welcome to Songify </h1>
+            	<h3> Enter name to access your account </h3>
+            	<div class="input-wrapper">
+           		<input type="text" placeholder="Name" id="name-input">
+           		<button> Go </button></div>
+           		<p id="error">More than three char....</p>
             </section>
-        	</div>
-	<div class="table1">
+            <div class="main">
+        <header> 
+        	<div class="right floated user-name">  </div> 
+        </header>
+        <section class="content">
 	<table id="songs">
 	<thead>
 		<tr>
@@ -51,7 +56,9 @@
 		</tr>
 	</tbody>
 </table>
-</div> 
+
+        </section>
+<footer>
 <section id="hidden1">
 	<div class="current-song-wrapper">
     	<img class="current-song-image" height="55" width="55">
@@ -62,26 +69,23 @@
 	</div>
 	<audio controls=""></audio>
 </section>
+</footer>
+<section>
 
-
+</section>
+</div>
 <script src="jquery-2.2.0.min.js"></script>
-
-
-
-
-
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 <script>
-var name=document.querySelector('#name-input')
-if(name.length)>=3
-{
-	console.log('hi kanak0')
-}
-else{
-	console.log('hi vedant')
-}
-</script>
-<script>
+
+$('.welcome-screen button').on('click', function() {
+    var name = $('#name-input').val();
+    var message = "Welcome, " + name;
+    $('.main .user-name').text(message);
+    $('.welcome-screen').addClass('hidden');
+    $('.main').removeClass('hidden');
+});
+
 var songs = [
 	{
         'name': 'Make Some Noise For DesiBoys',
@@ -116,6 +120,9 @@ var songs = [
         'image': 'song4.jpg'
     }
     ]
+
+
+
     // songs is an array of objects
   
 	window.onload = function (){
@@ -168,8 +175,6 @@ var songs = [
 	    $('.current-song-name').text(songObj.name)
 	    $('.current-song-album').text(songObj.album)
 	}
-	
-</script>
 
 
 
