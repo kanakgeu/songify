@@ -85,3 +85,14 @@ h1 {
 .play-icon {
     // color: teal;
 }
+table{
+    color: black;
+}
+thead{
+    color: white;
+}
+label{
+    color: white;
+}
+td:hover{
+    cursor:pointer;}
