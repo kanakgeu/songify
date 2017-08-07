@@ -63,7 +63,7 @@
         <div class="controls">
         <img class="current-song-image" height="55" width="55">
         <p class="current-song-name"></p>
-        	<p class="current-song-album"></p>
+        	
         <audio controls=""></audio>
         <i class="fa fa-play clickable play-icon" aria-hidden="true"></i>
     	
@@ -127,6 +127,8 @@ var songs = [
             $('.main').removeClass('hidden');
         } else {
             $('#name-input').addClass('error');
+            window.alert('Your Name is sort to Go');
+
         }
     });
 window.onload = function (){
